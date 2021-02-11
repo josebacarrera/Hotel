@@ -13,14 +13,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 
-public class hotelesModelo extends Conector {
+public class HotelModelo extends Conector {
 
 	//METODOS
 	
 	//1튝ETODO
-	public ArrayList<Hoteles> selectAllhoteles() {
+	public ArrayList<Hotel> selectAllhoteles() {
 
-	ArrayList<Hoteles> lista = new ArrayList<Hoteles>();
+	ArrayList<Hotel> lista = new ArrayList<Hotel>();
 	
 	try {
 
@@ -29,7 +29,7 @@ public class hotelesModelo extends Conector {
 
 		while (rs.next()) {
 
-			Hoteles hotel = new Hoteles();
+			Hotel hotel = new Hotel();
 
 			hotel.setId(rs.getInt("id"));
 			hotel.setCif(rs.getString("cif"));
@@ -52,9 +52,9 @@ public class hotelesModelo extends Conector {
 	}
 	//2튝ETODO
 	
-		public ArrayList<Hoteles> buscarHoteles(String nombre) {
+		public ArrayList<Hotel> buscarHoteles(String nombre) {
 
-			ArrayList<Hoteles> lista = new ArrayList<Hoteles>();
+			ArrayList<Hotel> lista = new ArrayList<Hotel>();
 
 			try {
 
@@ -64,7 +64,7 @@ public class hotelesModelo extends Conector {
 
 				while (rs.next()) {
 
-					Hoteles hotel = new Hoteles();
+					Hotel hotel = new Hotel();
 
 					hotel.setId(rs.getInt("id"));
 					hotel.setCif(rs.getString("cif"));
@@ -88,15 +88,17 @@ public class hotelesModelo extends Conector {
 		
 		//3튝ETODO
 		
-		public void verHoteles(int id) {
+		public Hotel verHoteles(int id) {
 
+			Hotel hotel = new Hotel();
+			
 			try {
 
 				Statement st = super.conexion.createStatement();
 				ResultSet rs = st.executeQuery("select * from hoteles where id='" + id + "'");
 
 				if (rs.next()) {
-					Hoteles hotel = new Hoteles();
+					
 
 					hotel.setId(rs.getInt("id"));
 					hotel.setCif(rs.getString("cif"));
@@ -116,7 +118,7 @@ public class hotelesModelo extends Conector {
 			catch (SQLException e) {
 				e.printStackTrace();
 			}
-
+			return hotel;
 		}
 		
 		//4튝ETODO

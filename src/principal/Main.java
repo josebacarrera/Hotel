@@ -17,25 +17,25 @@ public class Main {
 		// TODO Auto-generated method stub
 
 		//CLIENTES
-		ArrayList <Clientes> cli = new ArrayList<Clientes>();
+		ArrayList <Cliente> cli = new ArrayList<Cliente>();
 		
-		clientesModelo cm = new clientesModelo();
+		ClienteModelo cm = new ClienteModelo();
 		
 		//HABITACIONES
-		ArrayList <Habitaciones> hab = new ArrayList<Habitaciones>();
+		ArrayList <Habitacion> hab = new ArrayList<Habitacion>();
 		
-		habitacionesModelo hm = new habitacionesModelo();
+		HabitacionModelo hm = new HabitacionModelo();
 		
 		
 		//HOTELES
-		ArrayList <Hoteles> hot = new ArrayList<Hoteles>();
+		ArrayList <Hotel> hot = new ArrayList<Hotel>();
 				
-		hotelesModelo hom = new hotelesModelo();
+		HotelModelo hom = new HotelModelo();
 		
 		//RESERVAS
-		ArrayList <Reservas> res = new ArrayList<Reservas>();
+		ArrayList <Reserva> res = new ArrayList<Reserva>();
 		
-		reservasModelo rm = new reservasModelo();
+		ReservaModelo rm = new ReservaModelo();
 		
 		
 		Scanner sc = new Scanner(System.in);
@@ -96,19 +96,19 @@ public class Main {
 				break;
 				
 			case 2:
-				buscarClientes();
+				buscarCliente();
 				break;
 				
 			case 3:				
-				verClientes();
+				verCliente();
 				break;
 				
 			case 4:
-				editarClientes();
+				editarCliente();
 				break;
 	
 			case 5:
-				borrarClientes();
+				borrarCliente();
 				break;
 	
 			//HABITACIONES
@@ -118,7 +118,7 @@ public class Main {
 				break;
 				
 			case 7:
-				buscarHabitaciones();
+				buscarHabitacion();
 				break;
 				
 			case 8:
@@ -126,55 +126,55 @@ public class Main {
 				break;
 		
 			case 9:
-				editarHabitaciones();
+				editarHabitacion();
 				break;
 		
 			case 10:
-				eliminarHabitaciones();
+				eliminarHabitacion();
 				break;
 				
 			//HOTELES
 				
 			case 11:
-				
+				todosHoteles();
 				break;
 				
 			case 12:
-				
+				buscarHotel();
 				break;
 				
 			case 13:
-				
+				verHotel();
 				break;
 		
 			case 14:
-				
+				editarHotel();
 				break;
-		
-			//RESERVAS
 				
 			case 15:
-				
+				borrarHotel();
 				break;
 			
-			case 16:
+			//RESERVAS
 				
+			case 16:
+				todasReservas();
 				break;
 				
 			case 17:
-	
+				buscarReserva();
 				break;
 	
 			case 18:
-	
+				verReserva();
 				break;
 	
 			case 19:
-	
+				editarReserva();
 				break;
 	
 			case 20:
-	
+				borrarReserva();
 				break;
 				
 			case 0:
@@ -198,8 +198,8 @@ public class Main {
 		
 		public static boolean login() {
 			
-			ArrayList<Clientes> Lista = new ArrayList<Clientes>();
-			clientesModelo cm = new clientesModelo();
+			ArrayList<Cliente> Lista = new ArrayList<Cliente>();
+			ClienteModelo cm = new ClienteModelo();
 			Scanner sc = new Scanner(System.in);
 			String dni,nombre;
 			System.out.println("Introduce un dni");
@@ -220,8 +220,8 @@ public class Main {
 	
 	public static void todosClientes(){
 		
-		ArrayList <Clientes> cli = new ArrayList<Clientes>();
-		clientesModelo cm = new clientesModelo();
+		ArrayList <Cliente> cli = new ArrayList<Cliente>();
+		ClienteModelo cm = new ClienteModelo();
 		
 		System.out.println("TODOS LOS CLIENTES");
 		cli = cm.selectAllclientes();
@@ -233,45 +233,45 @@ public class Main {
 	
 	//2ºMETODO
 	
-	public static void buscarClientes() {
+	public static void buscarCliente() {
 		
 
 		
-		ArrayList <Clientes> lista;
-		clientesModelo cm = new clientesModelo();
+		ArrayList <Cliente> lista;
+		ClienteModelo cm = new ClienteModelo();
 		
 		System.out.println("Escribe una parte de un cliente");
 		Scanner sc = new Scanner(System.in);
 		String elegir;
 		elegir = sc.nextLine();
 		
-		lista=cm.buscarClientes(elegir);
+		///lista=cm.buscarClientes(elegir);
 		
-		for (int i = 0; i < lista.size(); i++) {
+		//for (int i = 0; i < lista.size(); i++) {
 			
-			System.out.println(lista.get(i).toString());
-		} 
+		//	System.out.println(lista.get(i).toString());
+		//} 
 		
 	}
 	
 	//3ºMETODO
 	
-	public static void verClientes() {
+	public static void verCliente() {
 		
 		System.out.println("Escribe el dni del cliente");
 		Scanner sc = new Scanner(System.in);
 		String elegir;
 		elegir = sc.nextLine();
 		int dni = 0;
-		clientesModelo cm = new clientesModelo();
-		cm.verClientes(dni);
+		ClienteModelo cm = new ClienteModelo();
+		cm.verCliente(dni);
 	}
 	
 	//4ºMETODO
 	
-	public static void editarClientes() {
+	public static void editarCliente() {
 		
-		clientesModelo cm = new clientesModelo();
+		ClienteModelo cm = new ClienteModelo();
 		String dni,direccion,nombre,apellidos,localidad;
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Escribe el dni");
@@ -284,20 +284,20 @@ public class Main {
 		direccion = sc.nextLine();
 		System.out.println("Escribe la localidad");
 		localidad = sc.nextLine();
-		cm.actualizarClientes(dni, nombre, apellidos, direccion, localidad);
+		//cm.actualizarClientes(dni, nombre, apellidos, direccion, localidad);
 	}
 	
 	//5ºMETODO
 	
-	public static void borrarClientes() {
+	public static void borrarCliente() {
 		
-		clientesModelo cm = new clientesModelo();
+		ClienteModelo cm = new ClienteModelo();
 		String dni;
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Introduce el dni");
 		dni= sc.nextLine();
-		cm.borrarClientes(dni);
+		//cm.borrarClientes(dni);
 		
 		}
 	
@@ -307,8 +307,8 @@ public class Main {
 	
 	public static void todasHabitaciones(){
 		
-		ArrayList <Habitaciones> hab = new ArrayList<Habitaciones>();
-		habitacionesModelo hm = new habitacionesModelo();
+		ArrayList <Habitacion> hab = new ArrayList<Habitacion>();
+		HabitacionModelo hm = new HabitacionModelo();
 		
 		System.out.println("TODOS LAS HABITACIONES");
 		hab = hm.selectAllhabitaciones();
@@ -320,13 +320,13 @@ public class Main {
 	
 	//2ºMETODO
 	
-	public static void buscarHabitaciones() {}
+	public static void buscarHabitacion() {}
 	
 	//3ºMETODO
 	
 	public static void quitar20e() {
 		
-		habitacionesModelo hm = new habitacionesModelo();
+		HabitacionModelo hm = new HabitacionModelo();
 		int id;
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Escribe el id");
@@ -336,9 +336,9 @@ public class Main {
 	
 	//4ºMETODO
 	
-	public static void editarHabitaciones() {
+	public static void editarHabitacion() {
 		
-		habitacionesModelo hm = new habitacionesModelo();
+		HabitacionModelo hm = new HabitacionModelo();
 		int id,id_hotel;
 		String numero,descripcion;
 		double precio;
@@ -358,9 +358,9 @@ public class Main {
 	
 	//5ºMETODO
 	
-	public static void eliminarHabitaciones() {
+	public static void eliminarHabitacion() {
 		
-		habitacionesModelo hm = new habitacionesModelo();
+		HabitacionModelo hm = new HabitacionModelo();
 		String elegir;
 		int id=0;
 		Scanner sc = new Scanner(System.in);
@@ -375,8 +375,8 @@ public class Main {
 	
 		public static void todosHoteles(){
 			
-			ArrayList <Hoteles> hot = new ArrayList<Hoteles>();
-			hotelesModelo hom = new hotelesModelo();
+			ArrayList <Hotel> hot = new ArrayList<Hotel>();
+			HotelModelo hom = new HotelModelo();
 			
 			System.out.println("TODOS LOS HOTELES");
 			hot = hom.selectAllhoteles();
@@ -388,12 +388,12 @@ public class Main {
 		
 		//2ºMETODO
 		
-		public static void buscarHoteles() {
+		public static void buscarHotel() {
 			
 
 			
-			ArrayList <Hoteles> lista;
-			hotelesModelo hom = new hotelesModelo();
+			ArrayList <Hotel> lista;
+			HotelModelo hom = new HotelModelo();
 			
 			System.out.println("Escribe parte del nombre un hotel");
 			Scanner sc = new Scanner(System.in);
@@ -411,22 +411,22 @@ public class Main {
 		
 		//3ºMETODO
 		
-		public static void verHoteles() {
+		public static void verHotel() {
 			
 			System.out.println("Escribe el id del hotel");
 			Scanner sc = new Scanner(System.in);
 			String elegir;
 			elegir = sc.nextLine();
 			int id = 0;
-			hotelesModelo hom = new hotelesModelo();
+			HotelModelo hom = new HotelModelo();
 			hom.verHoteles(id);
 		}
 		
 		//4ºMETODO
 		
-		public static void editarHoteles() {
+		public static void editarHotel() {
 			
-			hotelesModelo hom = new hotelesModelo();
+			HotelModelo hom = new HotelModelo();
 			String cif,nombre,gerente,compania;
 			int id,estrellas;
 			Scanner sc = new Scanner(System.in);
@@ -447,9 +447,9 @@ public class Main {
 		
 		//5ºMETODO
 		
-		public static void borrarHoteles() {
+		public static void borrarHotel() {
 			
-			hotelesModelo hom = new hotelesModelo();
+			HotelModelo hom = new HotelModelo();
 			int id;
 			
 			Scanner sc = new Scanner(System.in);
@@ -459,25 +459,91 @@ public class Main {
 			
 			}
 	
-	//RESERVAS
+		//RESERVAS
 	
-	//1ºMETODO
+		//1ºMETODO
 		
-	public static void todasReservas(){}
+		public static void todasReservas(){
+			
+			ArrayList <Reserva> res = new ArrayList<Reserva>();
+			ReservaModelo rm = new ReservaModelo();
+			
+			System.out.println("TODOS LAS RESERVAS");
+			res = rm.selectAllreservas();
+			for (int i = 0; i < res.size(); i++) {
+				
+				System.out.println(res.get(i).toString());
+			} 
+		}
 		
-	//2ºMETODO
+		//2ºMETODO
 		
-	public static void buscarReservas() {}
+		public static void buscarReserva() {
+			
+
+			
+			ArrayList <Reserva> lista;
+			ReservaModelo rm = new ReservaModelo();
+			
+			System.out.println("Escribe el dni que está asociado a la reserva");
+			Scanner sc = new Scanner(System.in);
+			String elegir;
+			elegir = sc.nextLine();
+			
+			lista=rm.buscarReserva(elegir);
+			
+			for (int i = 0; i < lista.size(); i++) {
+				
+				System.out.println(lista.get(i).toString());
+			} 
+			
+		}
 		
-	//3ºMETODO
+		//3ºMETODO
 		
-	public static void verReservas() {}
+		public static void verReserva() {
+			
+			System.out.println("Escribe el id asociado a la reserva");
+			Scanner sc = new Scanner(System.in);
+			String elegir;
+			elegir = sc.nextLine();
+			String dni;
+			ReservaModelo rm = new ReservaModelo();
+			//rm.verReserva(dni);
+		}
 		
-	//4ºMETODO
+		//4ºMETODO
 		
-	public static void editarReservas() {}
+		public static void editarReserva() {
+			
+			ReservaModelo cm = new ReservaModelo();
+			int id,id_habitacion;
+			String dni,desde,fin;
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Escribe la id");
+			id = Integer.parseInt(sc.nextLine());
+			System.out.println("Escribe el número de la habitación");
+			id_habitacion = Integer.parseInt(sc.nextLine());
+			System.out.println("Escribe el inicio de la reserva");
+			dni = sc.nextLine();
+			System.out.println("Escribe el fin de la resrva");
+			desde = sc.nextLine();
+			System.out.println("Escribe el fin de la resrva");
+			fin = sc.nextLine();
+			cm.actualizarReserva(id, id_habitacion, dni,desde, fin);
+		}
 		
-	//5ºMETODO
+		//5ºMETODO
 		
-	public static void eliminarReservas() {}
+		public static void borrarReserva() {
+			
+			ReservaModelo rm = new ReservaModelo();
+			int id;
+			
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Introduce el id");
+			id= Integer.parseInt(sc.nextLine());
+			//rm.borrarReserva(id);
+			
+			}
 }

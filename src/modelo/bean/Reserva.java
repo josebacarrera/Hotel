@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 
-public class Reservas {
+public class Reserva {
 
 	//ATRIBUTOS
 	
@@ -25,11 +25,11 @@ public class Reservas {
 	
 	//CONSTRUCTORES 
 	
-	public Reservas() {
+	public Reserva() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Reservas(int id, int id_habitacion, String dni, String desde, String hasta) {
+	public Reserva(int id, int id_habitacion, String dni, String desde, String hasta) {
 		super();
 		this.id = id;
 		this.id_habitacion = id_habitacion;

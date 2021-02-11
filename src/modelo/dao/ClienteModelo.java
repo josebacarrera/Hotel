@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 
-public class clientesModelo extends Conector {
+public class ClienteModelo extends Conector {
 
 	//METODOS
 	
@@ -50,9 +50,9 @@ public class clientesModelo extends Conector {
 	}
 	
 	//1튝ETODO
-	public ArrayList<Clientes> selectAllclientes() {
+	public ArrayList<Cliente> selectAllclientes() {
 
-	ArrayList<Clientes> lista = new ArrayList<Clientes>();
+	ArrayList<Cliente> lista = new ArrayList<Cliente>();
 	
 	try {
 
@@ -61,7 +61,7 @@ public class clientesModelo extends Conector {
 
 		while (rs.next()) {
 
-			Clientes cliente = new Clientes();
+			Cliente cliente = new Cliente();
 
 			cliente.setDni(rs.getString("dni"));
 			cliente.setNombre(rs.getString("nombre"));
@@ -84,9 +84,9 @@ public class clientesModelo extends Conector {
 	
 	//2튝ETODO
 	
-	public ArrayList<Clientes> buscarClientes(String nombre) {
+	public ArrayList<Cliente> buscarCliente(String nombre) {
 
-		ArrayList<Clientes> lista = new ArrayList<Clientes>();
+		ArrayList<Cliente> lista = new ArrayList<Cliente>();
 
 		try {
 
@@ -96,7 +96,7 @@ public class clientesModelo extends Conector {
 
 			while (rs.next()) {
 
-				Clientes cliente = new Clientes();
+				Cliente cliente = new Cliente();
 
 				cliente.setDni(rs.getString("dni"));
 				cliente.setNombre(rs.getString("nombre"));
@@ -119,15 +119,17 @@ public class clientesModelo extends Conector {
 	
 	//3튝ETODO
 	
-	public void verClientes(int dni) {
+	public Cliente verCliente(int dni) {
 
+		Cliente cliente = new Cliente();
+		
 		try {
 
 			Statement st = super.conexion.createStatement();
 			ResultSet rs = st.executeQuery("select * from clientes where dni='" + dni + "'");
 
 			if (rs.next()) {
-				Clientes cliente = new Clientes();
+				
 
 				cliente.setDni(rs.getString("dni"));
 				cliente.setNombre(rs.getString("nombre"));
@@ -135,12 +137,9 @@ public class clientesModelo extends Conector {
 				cliente.setDireccion(rs.getString("direccion"));
 				cliente.setLocalidad(rs.getString("localidad"));
 				
-				System.out.println(cliente.toString());
+		
 
-			} else {
-
-				System.out.println("No existe ningun usuario con ese dni");
-			}
+			} 
 
 		}
 
@@ -148,11 +147,13 @@ public class clientesModelo extends Conector {
 			e.printStackTrace();
 		}
 
+		return cliente;
+		
 	}
 	
 	//4튝ETODO
 	
-	public void actualizarClientes(String dni,String nombre,String apellidos,String direccion,String localidad) {
+	public void actualizarCliente(String dni,String nombre,String apellidos,String direccion,String localidad) {
 
 		PreparedStatement pst;
 		try {
@@ -190,7 +191,7 @@ public class clientesModelo extends Conector {
 	
 	//5튝ETODO
 	
-	public void borrarClientes(String dni) {
+	public void borrarCliente(String dni) {
 
 		PreparedStatement pst;
 		try {

@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 
-public class Clientes {
+public class Cliente {
 
 	//ATRIBUTOS
 	
@@ -26,13 +26,13 @@ public class Clientes {
 	
 	//CONSTRUCTORES
 	
-	public Clientes() {
+	public Cliente() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 
-	public Clientes(String dni, String nombre, String apellidos, String direccion, String localidad) {
+	public Cliente(String dni, String nombre, String apellidos, String direccion, String localidad) {
 		super();
 		this.dni = dni;
 		this.nombre = nombre;

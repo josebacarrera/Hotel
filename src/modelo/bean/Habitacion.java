@@ -12,7 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
-public class Habitaciones {
+public class Habitacion {
 
 	//ATRIBUTOS
 	
@@ -24,12 +24,12 @@ public class Habitaciones {
 	
 	//CONSTRUCTORES
 	
-	public Habitaciones() {
+	public Habitacion() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Habitaciones(int id, int id_hotel, String numero, String descripcion, double precio) {
+	public Habitacion(int id, int id_hotel, String numero, String descripcion, double precio) {
 		super();
 		this.id = id;
 		this.id_hotel = id_hotel;

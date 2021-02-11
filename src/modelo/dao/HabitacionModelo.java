@@ -13,14 +13,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 
-public class habitacionesModelo extends Conector {
+public class HabitacionModelo extends Conector {
 
 	//METODOS
 	
 	//1ºMETEDO
-	public ArrayList<Habitaciones> selectAllhabitaciones() {
+	public ArrayList<Habitacion> selectAllhabitaciones() {
 
-		ArrayList<Habitaciones> Lista = new ArrayList<Habitaciones>();
+		ArrayList<Habitacion> Lista = new ArrayList<Habitacion>();
 		
 		try {
 
@@ -29,7 +29,7 @@ public class habitacionesModelo extends Conector {
 
 			while (rs.next()) {
 
-				Habitaciones habitaciones = new Habitaciones();
+				Habitacion habitaciones = new Habitacion();
 
 				habitaciones.setId(rs.getInt("id"));
 				habitaciones.setId_hotel(rs.getInt("id_hotel"));
@@ -53,9 +53,9 @@ public class habitacionesModelo extends Conector {
 		
 	//2ºMETEDO
 	
-	public ArrayList<Habitaciones> buscarHabitaciones() {
+	public ArrayList<Habitacion> buscarHabitaciones() {
 
-		ArrayList<Habitaciones> Lista = new ArrayList<Habitaciones>();
+		ArrayList<Habitacion> Lista = new ArrayList<Habitacion>();
 
 		try {
 
@@ -69,7 +69,7 @@ public class habitacionesModelo extends Conector {
 
 			while (rs.next()) {
 				
-				Habitaciones habitaciones = new Habitaciones();
+				Habitacion habitaciones = new Habitacion();
 
 				habitaciones.setId(rs.getInt("id"));
 				habitaciones.setId_hotel(rs.getInt("id_hotel"));
