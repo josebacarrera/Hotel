@@ -1,8 +1,10 @@
 package modelo.dao;
 import java.util.*;
-import modelo.bin.*;
+
 import modelo.dao.*;
 import modelo.*;
+import modelo.bean.*;
+
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -48,9 +50,9 @@ public class clientesModelo extends Conector {
 	}
 	
 	//1ºMETODO
-	public ArrayList<clientes> selectAllclientes() {
+	public ArrayList<Clientes> selectAllclientes() {
 
-	ArrayList<clientes> Lista = new ArrayList<clientes>();
+	ArrayList<Clientes> lista = new ArrayList<Clientes>();
 	
 	try {
 
@@ -59,15 +61,15 @@ public class clientesModelo extends Conector {
 
 		while (rs.next()) {
 
-			clientes clientes = new clientes();
+			Clientes cliente = new Clientes();
 
-			clientes.setDni(rs.getString("dni"));
-			clientes.setNombre(rs.getString("nombre"));
-			clientes.setApellidos(rs.getString("apellidos"));
-			clientes.setDireccion(rs.getString("direccion"));
-			clientes.setLocalidad(rs.getString("localidad"));
+			cliente.setDni(rs.getString("dni"));
+			cliente.setNombre(rs.getString("nombre"));
+			cliente.setApellidos(rs.getString("apellidos"));
+			cliente.setDireccion(rs.getString("direccion"));
+			cliente.setLocalidad(rs.getString("localidad"));
 
-			Lista.add(clientes);
+			lista.add(cliente);
 
 		}
 
@@ -77,36 +79,32 @@ public class clientesModelo extends Conector {
 		e.printStackTrace();
 	}
 
-	return Lista;
+	return lista;
 	}
 	
 	//2ºMETODO
 	
-	public ArrayList<clientes> buscarClientes() {
+	public ArrayList<Clientes> buscarClientes(String nombre) {
 
-		ArrayList<clientes> Lista = new ArrayList<clientes>();
+		ArrayList<Clientes> lista = new ArrayList<Clientes>();
 
 		try {
 
-			System.out.println("Escribe una parte de un cliente");
-			Scanner sc = new Scanner(System.in);
-			String elegir;
-			elegir = sc.nextLine();
 
 			Statement st = super.conexion.createStatement();
-			ResultSet rs = st.executeQuery("select * from clientes where nombre like '%" + elegir + "%'");
+			ResultSet rs = st.executeQuery("select * from clientes where nombre like '%" + nombre + "%'");
 
 			while (rs.next()) {
 
-				clientes clientes = new clientes();
+				Clientes cliente = new Clientes();
 
-				clientes.setDni(rs.getString("dni"));
-				clientes.setNombre(rs.getString("nombre"));
-				clientes.setApellidos(rs.getString("apellidos"));
-				clientes.setDireccion(rs.getString("direccion"));
-				clientes.setLocalidad(rs.getString("localidad"));
+				cliente.setDni(rs.getString("dni"));
+				cliente.setNombre(rs.getString("nombre"));
+				cliente.setApellidos(rs.getString("apellidos"));
+				cliente.setDireccion(rs.getString("direccion"));
+				cliente.setLocalidad(rs.getString("localidad"));
 
-				Lista.add(clientes);
+				lista.add(cliente);
 
 			}
 
@@ -116,33 +114,28 @@ public class clientesModelo extends Conector {
 			e.printStackTrace();
 		}
 
-		return Lista;
+		return lista;
 	}
 	
 	//3ºMETODO
 	
-	public void verClientes() {
+	public void verClientes(int dni) {
 
 		try {
 
-			System.out.println("Escribe el dni del cliente");
-			Scanner sc = new Scanner(System.in);
-			String elegir;
-			elegir = sc.nextLine();
-
 			Statement st = super.conexion.createStatement();
-			ResultSet rs = st.executeQuery("select * from clientes where dni='" + elegir + "'");
+			ResultSet rs = st.executeQuery("select * from clientes where dni='" + dni + "'");
 
 			if (rs.next()) {
-				clientes clientes = new clientes();
+				Clientes cliente = new Clientes();
 
-				clientes.setDni(rs.getString("dni"));
-				clientes.setNombre(rs.getString("nombre"));
-				clientes.setApellidos(rs.getString("apellidos"));
-				clientes.setDireccion(rs.getString("direccion"));
-				clientes.setLocalidad(rs.getString("localidad"));
+				cliente.setDni(rs.getString("dni"));
+				cliente.setNombre(rs.getString("nombre"));
+				cliente.setApellidos(rs.getString("apellidos"));
+				cliente.setDireccion(rs.getString("direccion"));
+				cliente.setLocalidad(rs.getString("localidad"));
 				
-				System.out.println(clientes.toString());
+				System.out.println(cliente.toString());
 
 			} else {
 

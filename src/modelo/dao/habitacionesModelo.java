@@ -1,8 +1,10 @@
 package modelo.dao;
 import java.util.*;
-import modelo.bin.*;
+
 import modelo.dao.*;
 import modelo.*;
+import modelo.bean.*;
+
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -16,9 +18,9 @@ public class habitacionesModelo extends Conector {
 	//METODOS
 	
 	//1ºMETEDO
-	public ArrayList<habitaciones> selectAllhabitaciones() {
+	public ArrayList<Habitaciones> selectAllhabitaciones() {
 
-		ArrayList<habitaciones> Lista = new ArrayList<habitaciones>();
+		ArrayList<Habitaciones> Lista = new ArrayList<Habitaciones>();
 		
 		try {
 
@@ -27,7 +29,7 @@ public class habitacionesModelo extends Conector {
 
 			while (rs.next()) {
 
-				habitaciones habitaciones = new habitaciones();
+				Habitaciones habitaciones = new Habitaciones();
 
 				habitaciones.setId(rs.getInt("id"));
 				habitaciones.setId_hotel(rs.getInt("id_hotel"));
@@ -51,6 +53,45 @@ public class habitacionesModelo extends Conector {
 		
 	//2ºMETEDO
 	
+	public ArrayList<Habitaciones> buscarHabitaciones() {
+
+		ArrayList<Habitaciones> Lista = new ArrayList<Habitaciones>();
+
+		try {
+
+			System.out.println("Escribe el id de una habitación");
+			Scanner sc = new Scanner(System.in);
+			String elegir;
+			elegir = sc.nextLine();
+
+			Statement st = super.conexion.createStatement();
+			ResultSet rs = st.executeQuery("select * from habitaciones where id like '%" + elegir + "%'");
+
+			while (rs.next()) {
+				
+				Habitaciones habitaciones = new Habitaciones();
+
+				habitaciones.setId(rs.getInt("id"));
+				habitaciones.setId_hotel(rs.getInt("id_hotel"));
+				habitaciones.setNumero(rs.getString("numero"));
+				habitaciones.setDescripcion(rs.getString("descripcion"));
+				habitaciones.setPrecio(rs.getDouble("precio"));
+
+				Lista.add(habitaciones);
+
+
+			}
+
+		}
+
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return Lista;
+	}
+	
+	
 	//3ºMETEDO
 	
 	public void restar20(int id) {
@@ -70,9 +111,58 @@ public class habitacionesModelo extends Conector {
 	
 	//4ºMETEDO
 	
+	public void actualizarHabitaciones(int id,int id_hotel,String numero,String descripcion,Double precio) {
+
+		PreparedStatement pst;
+		try {
+			pst = super.conexion.prepareStatement("update clientes set id_hotel=? where dni=?");
+			pst.setInt(1, id_hotel);
+			pst.setInt(2, id);
+			
+			pst.executeUpdate();
+			
+			pst = super.conexion.prepareStatement("update clientes set numero=? where dni=?");
+			pst.setString(1, numero);
+			pst.setInt(2, id);
+			
+			pst.executeUpdate();
+			
+			pst = super.conexion.prepareStatement("update clientes set descripcion=? where dni=?");
+			pst.setString(1, descripcion);
+			pst.setInt(2, id);
+		
+			pst.executeUpdate();
+
+			pst = super.conexion.prepareStatement("update clientes set precio=? where dni=?");
+			pst.setDouble(1, precio);
+			pst.setInt(2, id);
+		
+			pst.executeUpdate();
+			
+			System.out.println("Los datos de la habitación se han modificado correctamente");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
 
 	//5ºMETEDO
 
+	public void borrarHabitaciones(int id) {
+
+		PreparedStatement pst;
+		try {
+			pst = (PreparedStatement) super.conexion.prepareStatement("delete from habitaciones where id=?");
+			pst.setInt(1, id);
+			pst.execute();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
 }
 	
 

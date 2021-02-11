@@ -1,8 +1,10 @@
-package modelo.bin;
+package modelo.bean;
 import java.util.*;
-import modelo.bin.*;
+
 import modelo.dao.*;
 import modelo.*;
+import modelo.bean.*;
+
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -11,7 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
 
-public class clientes {
+public class Clientes {
 
 	//ATRIBUTOS
 	
@@ -24,13 +26,13 @@ public class clientes {
 	
 	//CONSTRUCTORES
 	
-	public clientes() {
+	public Clientes() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 
-	public clientes(String dni, String nombre, String apellidos, String direccion, String localidad) {
+	public Clientes(String dni, String nombre, String apellidos, String direccion, String localidad) {
 		super();
 		this.dni = dni;
 		this.nombre = nombre;

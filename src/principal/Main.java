@@ -1,8 +1,10 @@
 package principal;
 import java.util.*;
-import modelo.bin.*;
+
 import modelo.dao.*;
 import modelo.*;
+import modelo.bean.*;
+
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -15,29 +17,29 @@ public class Main {
 		// TODO Auto-generated method stub
 
 		//CLIENTES
-		ArrayList <clientes> cli = new ArrayList<clientes>();
+		ArrayList <Clientes> cli = new ArrayList<Clientes>();
 		
 		clientesModelo cm = new clientesModelo();
 		
 		//HABITACIONES
-		ArrayList <habitaciones> hab = new ArrayList<habitaciones>();
+		ArrayList <Habitaciones> hab = new ArrayList<Habitaciones>();
 		
 		habitacionesModelo hm = new habitacionesModelo();
 		
 		
 		//HOTELES
-		ArrayList <hoteles> hot = new ArrayList<hoteles>();
+		ArrayList <Hoteles> hot = new ArrayList<Hoteles>();
 				
 		hotelesModelo hom = new hotelesModelo();
 		
 		//RESERVAS
-		ArrayList <reservas> res = new ArrayList<reservas>();
+		ArrayList <Reservas> res = new ArrayList<Reservas>();
 		
 		reservasModelo rm = new reservasModelo();
 		
 		
 		Scanner sc = new Scanner(System.in);
-		//TODO realizar la conexi처n a la base de datos
+		
 		
 		//LOGIN
 		int cont=0;
@@ -116,7 +118,7 @@ public class Main {
 				break;
 				
 			case 7:
-
+				buscarHabitaciones();
 				break;
 				
 			case 8:
@@ -124,11 +126,11 @@ public class Main {
 				break;
 		
 			case 9:
-				
+				editarHabitaciones();
 				break;
 		
 			case 10:
-				
+				eliminarHabitaciones();
 				break;
 				
 			//HOTELES
@@ -196,7 +198,7 @@ public class Main {
 		
 		public static boolean login() {
 			
-			ArrayList<clientes> Lista = new ArrayList<clientes>();
+			ArrayList<Clientes> Lista = new ArrayList<Clientes>();
 			clientesModelo cm = new clientesModelo();
 			Scanner sc = new Scanner(System.in);
 			String dni,nombre;
@@ -218,7 +220,7 @@ public class Main {
 	
 	public static void todosClientes(){
 		
-		ArrayList <clientes> cli = new ArrayList<clientes>();
+		ArrayList <Clientes> cli = new ArrayList<Clientes>();
 		clientesModelo cm = new clientesModelo();
 		
 		System.out.println("TODOS LOS CLIENTES");
@@ -233,14 +235,21 @@ public class Main {
 	
 	public static void buscarClientes() {
 		
-		ArrayList <clientes> Lista;
+
+		
+		ArrayList <Clientes> lista;
 		clientesModelo cm = new clientesModelo();
 		
-		Lista=cm.buscarClientes();
+		System.out.println("Escribe una parte de un cliente");
+		Scanner sc = new Scanner(System.in);
+		String elegir;
+		elegir = sc.nextLine();
 		
-		for (int i = 0; i < Lista.size(); i++) {
+		lista=cm.buscarClientes(elegir);
+		
+		for (int i = 0; i < lista.size(); i++) {
 			
-			System.out.println(Lista.get(i).toString());
+			System.out.println(lista.get(i).toString());
 		} 
 		
 	}
@@ -249,8 +258,13 @@ public class Main {
 	
 	public static void verClientes() {
 		
+		System.out.println("Escribe el dni del cliente");
+		Scanner sc = new Scanner(System.in);
+		String elegir;
+		elegir = sc.nextLine();
+		int dni = 0;
 		clientesModelo cm = new clientesModelo();
-		cm.verClientes();
+		cm.verClientes(dni);
 	}
 	
 	//4튝ETODO
@@ -293,7 +307,7 @@ public class Main {
 	
 	public static void todasHabitaciones(){
 		
-		ArrayList <habitaciones> hab = new ArrayList<habitaciones>();
+		ArrayList <Habitaciones> hab = new ArrayList<Habitaciones>();
 		habitacionesModelo hm = new habitacionesModelo();
 		
 		System.out.println("TODOS LAS HABITACIONES");
@@ -322,33 +336,128 @@ public class Main {
 	
 	//4튝ETODO
 	
-	public static void editarHabitaciones() {}
+	public static void editarHabitaciones() {
+		
+		habitacionesModelo hm = new habitacionesModelo();
+		int id,id_hotel;
+		String numero,descripcion;
+		double precio;
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Escribe el id");
+		id = Integer.parseInt(sc.nextLine());
+		System.out.println("Escribe id del hotel");
+		id_hotel = Integer.parseInt(sc.nextLine());
+		System.out.println("Escribe el numero");
+		numero = sc.nextLine();
+		System.out.println("Escribe la descripcion");
+		descripcion = sc.nextLine();
+		System.out.println("Escribe la precio");
+		precio = Double.parseDouble(sc.nextLine());
+		
+	}
 	
 	//5튝ETODO
 	
-	public static void eliminarHabitaciones() {}
+	public static void eliminarHabitaciones() {
+		
+		habitacionesModelo hm = new habitacionesModelo();
+		String elegir;
+		int id=0;
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Introduce el dni");
+		id= Integer.parseInt(sc.nextLine());
+		hm.borrarHabitaciones(id);
+	}
 	
 	//HOTELES
 	
 	//1튝ETODO
 	
-	public static void todosHoteles(){}
+		public static void todosHoteles(){
+			
+			ArrayList <Hoteles> hot = new ArrayList<Hoteles>();
+			hotelesModelo hom = new hotelesModelo();
+			
+			System.out.println("TODOS LOS HOTELES");
+			hot = hom.selectAllhoteles();
+			for (int i = 0; i < hot.size(); i++) {
+				
+				System.out.println(hot.get(i).toString());
+			} 
+		}
 		
-	//2튝ETODO
+		//2튝ETODO
 		
-	public static void buscarHoteles() {}
+		public static void buscarHoteles() {
+			
+
+			
+			ArrayList <Hoteles> lista;
+			hotelesModelo hom = new hotelesModelo();
+			
+			System.out.println("Escribe parte del nombre un hotel");
+			Scanner sc = new Scanner(System.in);
+			String elegir;
+			elegir = sc.nextLine();
+			
+			lista=hom.buscarHoteles(elegir);
+			
+			for (int i = 0; i < lista.size(); i++) {
+				
+				System.out.println(lista.get(i).toString());
+			} 
+			
+		}
 		
-	//3튝ETODO
+		//3튝ETODO
 		
-	public static void verHoteles() {}
+		public static void verHoteles() {
+			
+			System.out.println("Escribe el id del hotel");
+			Scanner sc = new Scanner(System.in);
+			String elegir;
+			elegir = sc.nextLine();
+			int id = 0;
+			hotelesModelo hom = new hotelesModelo();
+			hom.verHoteles(id);
+		}
 		
-	//4튝ETODO
+		//4튝ETODO
 		
-	public static void editarHoteles() {}
+		public static void editarHoteles() {
+			
+			hotelesModelo hom = new hotelesModelo();
+			String cif,nombre,gerente,compania;
+			int id,estrellas;
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Escribe el id");
+			id = Integer.parseInt(sc.nextLine());
+			System.out.println("Escribe nombre");
+			cif = sc.nextLine();
+			System.out.println("Escribe nombre");
+			nombre = sc.nextLine();
+			System.out.println("Escribe el apellido");
+			gerente = sc.nextLine();
+			System.out.println("Escribe la direccion");
+			estrellas = Integer.parseInt(sc.nextLine());
+			System.out.println("Escribe la localidad");
+			compania = sc.nextLine();
+			hom.actualizarHoteles(id,cif,nombre,gerente,estrellas,compania);
+		}
 		
-	//5튝ETODO
+		//5튝ETODO
 		
-	public static void eliminarHoteles() {}
+		public static void borrarHoteles() {
+			
+			hotelesModelo hom = new hotelesModelo();
+			int id;
+			
+			Scanner sc = new Scanner(System.in);
+			System.out.println("Introduce el dni");
+			id= Integer.parseInt(sc.nextLine());
+			hom.borrarHoteles(id);
+			
+			}
 	
 	//RESERVAS
 	

@@ -1,8 +1,10 @@
 package modelo.dao;
 import java.util.*;
-import modelo.bin.*;
+
 import modelo.dao.*;
 import modelo.*;
+import modelo.bean.*;
+
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -13,4 +15,6 @@ import java.sql.PreparedStatement;
 
 public class reservasModelo extends Conector {
 
+	
+	
 }
