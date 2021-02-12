@@ -4,13 +4,14 @@ import java.util.*;
 import modelo.dao.*;
 import modelo.*;
 import modelo.bean.*;
-
+import java.util.Date;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.sql.PreparedStatement;
 
 public class ReservaModelo extends Conector {
@@ -29,11 +30,11 @@ public class ReservaModelo extends Conector {
 
 			Reserva reserva = new Reserva();
 
-			reserva.setId(rs.getInt("Id"));
+			reserva.setId(rs.getInt("id"));
 			reserva.setId_habitacion(rs.getInt("id_habitacion"));
-			reserva.setDni(rs.getString("apellidos"));
-			reserva.setDesde(rs.getString("direccion"));
-			reserva.setHasta(rs.getString("localidad"));
+			reserva.setDni(rs.getString("dni"));
+			reserva.setDesde(rs.getDate("desde"));
+			reserva.setHasta(rs.getDate("hasta"));
 
 			lista.add(reserva);
 
@@ -64,11 +65,11 @@ public class ReservaModelo extends Conector {
 
 				Reserva reserva = new Reserva();
 
-				reserva.setId(rs.getInt("Id"));
+				reserva.setId(rs.getInt("id"));
 				reserva.setId_habitacion(rs.getInt("id_habitacion"));
-				reserva.setDni(rs.getString("apellidos"));
-				reserva.setDesde(rs.getString("direccion"));
-				reserva.setHasta(rs.getString("localidad"));
+				reserva.setDni(rs.getString("dni"));
+				reserva.setDesde(rs.getDate("desde"));
+				reserva.setHasta(rs.getDate("hasta"));
 
 				lista.add(reserva);
 
@@ -85,25 +86,23 @@ public class ReservaModelo extends Conector {
 	
 	//3ºMETODO
 	
-	public Reserva verReserva(String dni) {
+	public Reserva verReserva(int id) {
 
 		Reserva reserva = new Reserva();
 		
 		try {
 
 			Statement st = super.conexion.createStatement();
-			ResultSet rs = st.executeQuery("select * from reservas where dni='" + dni + "'");
+			ResultSet rs = st.executeQuery("select * from reservas where dni='" + id + "'");
 
 			if (rs.next()) {
-				
-
-				reserva.setId(rs.getInt("Id"));
+			
+				reserva.setId(rs.getInt("ID"));
 				reserva.setId_habitacion(rs.getInt("id_habitacion"));
-				reserva.setDni(rs.getString("apellidos"));
-				reserva.setDesde(rs.getString("direccion"));
-				reserva.setHasta(rs.getString("localidad"));
+				reserva.setDni(rs.getString("dni"));
+				reserva.setDate(rs.getString("desde"));
+				reserva.setDate(rs.getString("hasta"));
 				
-		
 
 			} 
 
@@ -119,30 +118,15 @@ public class ReservaModelo extends Conector {
 	
 	//4ºMETODO
 	
-	public void actualizarReserva(int id,int id_hoteles,String dni,String desde,String fin) {
-
+	public void actualizarReserva(int id,Date hasta) {
+		
+		java.sql.Date sqlFecha = new java.sql.Date (hasta.getTime());
+		
 		PreparedStatement pst;
 		try {
-			pst = super.conexion.prepareStatement("update reservas set id_habitacion=? where id=?");
-			pst.setInt(1, id_hoteles);
-			pst.setInt(2, id);
-			
-			pst.executeUpdate();
-			
-			pst = super.conexion.prepareStatement("update reservas set dni=? where id=?");
-			pst.setString(1, dni);
-			pst.setInt(2, id);
-			
-			pst.executeUpdate();
-			
-			pst = super.conexion.prepareStatement("update reservas set desde=? where id=?");
-			pst.setString(1, desde);
-			pst.setInt(2, id);
-		
-			pst.executeUpdate();
-
+				
 			pst = super.conexion.prepareStatement("update reservas set fin=? where id=?");
-			pst.setString(1, fin);
+			pst.setDate(1, sqlFecha);
 			pst.setInt(2, id);
 		
 			pst.executeUpdate();
@@ -157,12 +141,12 @@ public class ReservaModelo extends Conector {
 	
 	//5ºMETODO
 	
-	public void borrarReserva(String dni) {
+	public void borrarReserva(int id) {
 
 		PreparedStatement pst;
 		try {
-			pst = (PreparedStatement) super.conexion.prepareStatement("delete from reservas where dni=?");
-			pst.setString(1, dni);
+			pst = (PreparedStatement) super.conexion.prepareStatement("delete from reservas where id=?");
+			pst.setInt(1, id);
 			pst.execute();
 
 		} catch (SQLException e) {

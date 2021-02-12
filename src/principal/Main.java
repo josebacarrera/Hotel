@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 public class Main {
 
 	public static void main(String[] args) {
@@ -284,7 +285,7 @@ public class Main {
 		direccion = sc.nextLine();
 		System.out.println("Escribe la localidad");
 		localidad = sc.nextLine();
-		//cm.actualizarClientes(dni, nombre, apellidos, direccion, localidad);
+		cm.actualizarCliente(dni, nombre, apellidos, direccion, localidad);
 	}
 	
 	//5ºMETODO
@@ -507,30 +508,36 @@ public class Main {
 			Scanner sc = new Scanner(System.in);
 			String elegir;
 			elegir = sc.nextLine();
-			String dni;
+			int id=0;
 			ReservaModelo rm = new ReservaModelo();
-			//rm.verReserva(dni);
+			rm.verReserva(id);
+			
 		}
 		
 		//4ºMETODO
 		
 		public static void editarReserva() {
 			
-			ReservaModelo cm = new ReservaModelo();
-			int id,id_habitacion;
-			String dni,desde,fin;
+			Date fechaFin = new Date();
+			SimpleDateFormat formatoFecha1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			Scanner sc = new Scanner(System.in);
+			
+			
+			
+			ReservaModelo cm = new ReservaModelo();
+			int id;
 			System.out.println("Escribe la id");
 			id = Integer.parseInt(sc.nextLine());
-			System.out.println("Escribe el número de la habitación");
-			id_habitacion = Integer.parseInt(sc.nextLine());
-			System.out.println("Escribe el inicio de la reserva");
-			dni = sc.nextLine();
-			System.out.println("Escribe el fin de la resrva");
-			desde = sc.nextLine();
-			System.out.println("Escribe el fin de la resrva");
-			fin = sc.nextLine();
-			cm.actualizarReserva(id, id_habitacion, dni,desde, fin);
+			try {
+				
+				System.out.println("Escribe el fin de la reserva");
+				fechaFin = formatoFecha1.parse(sc.nextLine());
+				
+				
+			} catch (Exception e) {
+				
+			}
+			cm.actualizarReserva(id,fechaFin);
 		}
 		
 		//5ºMETODO
@@ -538,12 +545,12 @@ public class Main {
 		public static void borrarReserva() {
 			
 			ReservaModelo rm = new ReservaModelo();
-			int id;
+			int id = 0 ;
 			
 			Scanner sc = new Scanner(System.in);
 			System.out.println("Introduce el id");
 			id= Integer.parseInt(sc.nextLine());
-			//rm.borrarReserva(id);
+			rm.borrarReserva(id);
 			
 			}
 }

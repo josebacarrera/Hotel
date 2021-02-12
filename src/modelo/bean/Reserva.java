@@ -20,8 +20,8 @@ public class Reserva {
 	private int id;
 	private int id_habitacion;
 	private String dni;
-	private String desde;
-	private String hasta;
+	private Date desde;
+	private Date hasta;
 	
 	//CONSTRUCTORES 
 	
@@ -29,7 +29,7 @@ public class Reserva {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Reserva(int id, int id_habitacion, String dni, String desde, String hasta) {
+	public Reserva(int id, int id_habitacion, String dni, Date desde, Date hasta) {
 		super();
 		this.id = id;
 		this.id_habitacion = id_habitacion;
@@ -58,16 +58,16 @@ public class Reserva {
 	public void setDni(String dni) {
 		this.dni = dni;
 	}
-	public String getDesde() {
+	public Date getDesde() {
 		return desde;
 	}
-	public void setDesde(String desde) {
+	public void setDesde(Date desde) {
 		this.desde = desde;
 	}
-	public String getHasta() {
+	public Date getHasta() {
 		return hasta;
 	}
-	public void setHasta(String hasta) {
+	public void setHasta(Date hasta) {
 		this.hasta = hasta;
 	}
 	
