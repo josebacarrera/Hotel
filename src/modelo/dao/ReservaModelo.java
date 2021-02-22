@@ -100,8 +100,8 @@ public class ReservaModelo extends Conector {
 				reserva.setId(rs.getInt("ID"));
 				reserva.setId_habitacion(rs.getInt("id_habitacion"));
 				reserva.setDni(rs.getString("dni"));
-				reserva.setDate(rs.getString("desde"));
-				reserva.setDate(rs.getString("hasta"));
+				reserva.setDesde(rs.getDate("desde"));
+				reserva.setHasta(rs.getDate("hasta"));
 				
 
 			} 
