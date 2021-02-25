@@ -17,6 +17,8 @@ public class Main {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
+		
+		
 		//CLIENTES
 		ArrayList <Cliente> cli = new ArrayList<Cliente>();
 		
@@ -223,6 +225,8 @@ public class Main {
 		
 		ArrayList <Cliente> cli = new ArrayList<Cliente>();
 		ClienteModelo cm = new ClienteModelo();
+		String cont;
+		
 		
 		System.out.println("TODOS LOS CLIENTES");
 		cli = cm.selectAllclientes();
@@ -230,28 +234,31 @@ public class Main {
 			
 			System.out.println(cli.get(i).toString());
 		} 
+		
+		
 	}
 	
 	//2ºMETODO
 	
 	public static void buscarCliente() {
 		
-
-		
+		Scanner sc = new Scanner(System.in);
+		Cliente cliente = new Cliente();
 		ArrayList <Cliente> lista;
 		ClienteModelo cm = new ClienteModelo();
-		
+	
+			
 		System.out.println("Escribe una parte de un cliente");
-		Scanner sc = new Scanner(System.in);
 		String elegir;
 		elegir = sc.nextLine();
 		
-		///lista=cm.buscarClientes(elegir);
-		
-		//for (int i = 0; i < lista.size(); i++) {
+		lista=cm.buscarCliente(elegir);
 			
-		//	System.out.println(lista.get(i).toString());
-		//} 
+		for (int i = 0; i < lista.size(); i++) {
+				
+		System.out.println(lista.get(i).toString());
+		} 
+		
 		
 	}
 	
@@ -259,13 +266,28 @@ public class Main {
 	
 	public static void verCliente() {
 		
-		System.out.println("Escribe el dni del cliente");
+
 		Scanner sc = new Scanner(System.in);
+		Cliente cliente = new Cliente();
+		ArrayList <Cliente> lista;
 		String elegir;
-		elegir = sc.nextLine();
 		int dni = 0;
 		ClienteModelo cm = new ClienteModelo();
-		cm.verCliente(dni);
+		System.out.println("Que dni quieres?Escribelo");
+		dni = Integer.parseInt(sc.nextLine());
+		cliente=cm.verCliente(dni);
+		
+		if(cliente.getDni()==null) {
+			
+			System.out.println("No existe este dato,inténtalo otra vez");
+		}
+		
+		else {
+		cliente=cm.verCliente(dni);
+		System.out.println(cliente);
+
+		
+		}
 	}
 	
 	//4ºMETODO
@@ -275,6 +297,8 @@ public class Main {
 		ClienteModelo cm = new ClienteModelo();
 		String dni,direccion,nombre,apellidos,localidad;
 		Scanner sc = new Scanner(System.in);
+		
+		
 		System.out.println("Escribe el dni");
 		dni = sc.nextLine();
 		System.out.println("Escribe nombre");
@@ -285,8 +309,10 @@ public class Main {
 		direccion = sc.nextLine();
 		System.out.println("Escribe la localidad");
 		localidad = sc.nextLine();
+		
 		cm.actualizarCliente(dni, nombre, apellidos, direccion, localidad);
-	}
+		
+		}
 	
 	//5ºMETODO
 	
@@ -298,7 +324,7 @@ public class Main {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Introduce el dni");
 		dni= sc.nextLine();
-		//cm.borrarClientes(dni);
+		cm.borrarCliente(dni);
 		
 		}
 	

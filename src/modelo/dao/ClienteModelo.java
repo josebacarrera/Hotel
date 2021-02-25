@@ -58,6 +58,7 @@ public class ClienteModelo extends Conector {
 
 		Statement st = super.conexion.createStatement();
 		ResultSet rs = st.executeQuery("select * from clientes");
+		//int cont=st.executeUpdate();
 
 		while (rs.next()) {
 
@@ -87,7 +88,9 @@ public class ClienteModelo extends Conector {
 	public ArrayList<Cliente> buscarCliente(String nombre) {
 
 		ArrayList<Cliente> lista = new ArrayList<Cliente>();
-
+		Cliente cliente = new Cliente();
+		
+		
 		try {
 
 
@@ -95,8 +98,6 @@ public class ClienteModelo extends Conector {
 			ResultSet rs = st.executeQuery("select * from clientes where nombre like '%" + nombre + "%'");
 
 			while (rs.next()) {
-
-				Cliente cliente = new Cliente();
 
 				cliente.setDni(rs.getString("dni"));
 				cliente.setNombre(rs.getString("nombre"));
@@ -136,8 +137,6 @@ public class ClienteModelo extends Conector {
 				cliente.setApellidos(rs.getString("apellidos"));
 				cliente.setDireccion(rs.getString("direccion"));
 				cliente.setLocalidad(rs.getString("localidad"));
-				
-		
 
 			} 
 
@@ -155,6 +154,8 @@ public class ClienteModelo extends Conector {
 	
 	public void actualizarCliente(String dni,String nombre,String apellidos,String direccion,String localidad) {
 
+		
+		//int cont=st.executeUpdate();
 		PreparedStatement pst;
 		try {
 			pst = super.conexion.prepareStatement("update clientes set nombre=? where dni=?");

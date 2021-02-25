@@ -1,10 +1,8 @@
 package modelo.bean;
 import java.util.*;
-
 import modelo.dao.*;
 import modelo.*;
 import modelo.bean.*;
-
 import java.io.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
