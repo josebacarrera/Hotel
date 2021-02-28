@@ -16,7 +16,7 @@ public class Habitacion {
 
 	//ATRIBUTOS
 	
-	private int id;
+	private String id;
 	private int id_hotel; 
 	private String numero;
 	private String descripcion;
@@ -29,7 +29,7 @@ public class Habitacion {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Habitacion(int id, int id_hotel, String numero, String descripcion, double precio) {
+	public Habitacion(String id, int id_hotel, String numero, String descripcion, double precio) {
 		super();
 		this.id = id;
 		this.id_hotel = id_hotel;
@@ -40,12 +40,12 @@ public class Habitacion {
 	
 	//GETTERS Y SETTERES
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(String string) {
+		this.id = string;
 	}
 
 	public int getId_hotel() {

@@ -17,7 +17,7 @@ public class Reserva {
 
 	//ATRIBUTOS
 	
-	private int id;
+	private String id;
 	private int id_habitacion;
 	private String dni;
 	private Date desde;
@@ -29,7 +29,7 @@ public class Reserva {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Reserva(int id, int id_habitacion, String dni, Date desde, Date hasta) {
+	public Reserva(String id, int id_habitacion, String dni, Date desde, Date hasta) {
 		super();
 		this.id = id;
 		this.id_habitacion = id_habitacion;
@@ -40,10 +40,10 @@ public class Reserva {
 	
 	//GETTERS Y SETTERS
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public int getId_habitacion() {

@@ -2,6 +2,7 @@ package modelo.dao;
 import java.util.*;
 
 import modelo.dao.*;
+import principal.Comprobar;
 import modelo.*;
 import modelo.bean.*;
 
@@ -27,11 +28,11 @@ public class HabitacionModelo extends Conector {
 			Statement st = super.conexion.createStatement();
 			ResultSet rs = st.executeQuery("select * from habitaciones");
 
-			while (rs.next()) {
+			if (rs.next()) {
 
 				Habitacion habitaciones = new Habitacion();
 
-				habitaciones.setId(rs.getInt("id"));
+				habitaciones.setId(rs.getString("id"));
 				habitaciones.setId_hotel(rs.getInt("id_hotel"));
 				habitaciones.setNumero(rs.getString("numero"));
 				habitaciones.setDescripcion(rs.getString("descripcion"));
@@ -53,32 +54,24 @@ public class HabitacionModelo extends Conector {
 		
 	//2ºMETEDO
 	
-	public ArrayList<Habitacion> buscarHabitaciones() {
+	public Habitacion buscarHabitaciones(String pk) {
 
-		ArrayList<Habitacion> Lista = new ArrayList<Habitacion>();
+		Habitacion habitacion = new Habitacion();
 
 		try {
 
-			System.out.println("Escribe el id de una habitación");
-			Scanner sc = new Scanner(System.in);
-			String elegir;
-			elegir = sc.nextLine();
+
 
 			Statement st = super.conexion.createStatement();
-			ResultSet rs = st.executeQuery("select * from habitaciones where id like '%" + elegir + "%'");
+			ResultSet rs = st.executeQuery("select * from habitaciones where id like '%" + pk + "%'");
 
-			while (rs.next()) {
+			if (rs.next()) {
 				
-				Habitacion habitaciones = new Habitacion();
-
-				habitaciones.setId(rs.getInt("id"));
-				habitaciones.setId_hotel(rs.getInt("id_hotel"));
-				habitaciones.setNumero(rs.getString("numero"));
-				habitaciones.setDescripcion(rs.getString("descripcion"));
-				habitaciones.setPrecio(rs.getDouble("precio"));
-
-				Lista.add(habitaciones);
-
+				habitacion.setId(rs.getString("id"));
+				habitacion.setId_hotel(rs.getInt("id_hotel"));
+				habitacion.setNumero(rs.getString("numero"));
+				habitacion.setDescripcion(rs.getString("descripcion"));
+				habitacion.setPrecio(rs.getDouble("precio"));
 
 			}
 
@@ -88,82 +81,207 @@ public class HabitacionModelo extends Conector {
 			e.printStackTrace();
 		}
 
-		return Lista;
+		return habitacion;
 	}
 	
 	
 	//3ºMETEDO
 	
-	public void restar20(int id) {
+	public Habitacion restar20(String id) {
 		
+		Habitacion habitacion = new Habitacion();
 			PreparedStatement pst;
 		
 		try {
 				pst =super.conexion.prepareStatement("update habitaciones set precio=precio-20 where id=?");
-				pst.setInt(1, id);
+				pst.setString(1, id);
 				pst.executeUpdate();
 			
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
+		return habitacion;
 	}
 	
 	//4ºMETEDO
 	
-	public void actualizarHabitaciones(int id,int id_hotel,String numero,String descripcion,Double precio) {
+	public int actualizarHabitaciones(int id,int id_hotel,String numero,String descripcion,Double precio) {
 
+		int i = 0;
+		
 		PreparedStatement pst;
 		try {
+			
 			pst = super.conexion.prepareStatement("update clientes set id_hotel=? where dni=?");
 			pst.setInt(1, id_hotel);
 			pst.setInt(2, id);
 			
-			pst.executeUpdate();
+			i=pst.executeUpdate();
 			
 			pst = super.conexion.prepareStatement("update clientes set numero=? where dni=?");
 			pst.setString(1, numero);
 			pst.setInt(2, id);
 			
-			pst.executeUpdate();
+			i=pst.executeUpdate();
 			
 			pst = super.conexion.prepareStatement("update clientes set descripcion=? where dni=?");
 			pst.setString(1, descripcion);
 			pst.setInt(2, id);
 		
-			pst.executeUpdate();
+			i=pst.executeUpdate();
 
 			pst = super.conexion.prepareStatement("update clientes set precio=? where dni=?");
 			pst.setDouble(1, precio);
 			pst.setInt(2, id);
 		
-			pst.executeUpdate();
+			i=pst.executeUpdate();
 			
-			System.out.println("Los datos de la habitación se han modificado correctamente");
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		
+		return i;
 	}
 
 	//5ºMETEDO
 
-	public void borrarHabitaciones(int id) {
+	public int borrarHabitaciones(String id) {
 
+		int i = 0 ;
 		PreparedStatement pst;
 		try {
 			pst = (PreparedStatement) super.conexion.prepareStatement("delete from habitaciones where id=?");
-			pst.setInt(1, id);
+			pst.setString(1, id);
 			pst.execute();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
+		return i;
 	}
 	
 }
 	
 
+/*
+//1ºMETODO
 
+public static void todosClientes(){
+	
+	ArrayList <Cliente> cli = new ArrayList<Cliente>();
+	ClienteModelo cm = new ClienteModelo();
+	String cont;
+	
+	System.out.println("TODOS LOS CLIENTES");
+	cli = cm.selectAllclientes();
+	for (int i = 0; i < cli.size(); i++) {
+		
+		System.out.println(cli.get(i).toString());
+	} 
+	
+	System.out.println(cli.size());
+}
+
+//2ºMETODO
+
+public static void buscarCliente() {
+	
+Comprobar com = new Comprobar();
+ClienteModelo cm = new ClienteModelo();
+String pk;
+Scanner sc = new Scanner(System.in);
+System.out.println("Introduce el dni del cliente");
+pk=sc.nextLine();
+if (com.com("clientes","dni",pk)==false) {
+	System.out.println("Cliente no encontrado");
+}
+else {
+	System.out.println(cm.buscarCliente(pk));
+	}
+}
+
+//3ºMETODO
+
+public static void verCliente() {
+	
+
+	Scanner sc = new Scanner(System.in);
+	Cliente cliente = new Cliente();
+	ArrayList <Cliente> lista;
+	String elegir;
+	int dni = 0;
+	ClienteModelo cm = new ClienteModelo();
+	System.out.println("Que dni quieres?Escribelo");
+	dni = Integer.parseInt(sc.nextLine());
+	cliente=cm.verCliente(dni);
+	
+	if(cliente.getDni()==null) {
+		
+		System.out.println("No existe este dato,inténtalo otra vez");
+	}
+	
+	else {
+	cliente=cm.verCliente(dni);
+	System.out.println(cliente);
+
+	
+	}
+}
+
+//4ºMETODO
+
+public static void editarCliente() {
+	
+	Comprobar com = new Comprobar();
+	ClienteModelo cm = new ClienteModelo();
+	String pk,direccion,nombre,apellidos,localidad;
+	Scanner sc = new Scanner(System.in);
+	
+	System.out.println("Escribe el dni");
+	pk = sc.nextLine();
+	
+	if (com.com("clientes","dni",pk)==false) {
+		System.out.println("Cliente(dni) no encontrado");
+	}
+	else {
+		
+		System.out.println("Escribe nombre");
+		nombre = sc.nextLine();
+		System.out.println("Escribe el apellido");
+		apellidos = sc.nextLine();
+		System.out.println("Escribe la direccion");
+		direccion = sc.nextLine();
+		System.out.println("Escribe la localidad");
+		localidad = sc.nextLine();
+		
+		System.out.println("Los datos del cliente se han modificado correctamente");
+		System.out.println("------------------------------------------------------");
+		System.out.println("Se han modificado "+ cm.actualizarCliente(pk,direccion,nombre,apellidos,localidad) + " dato/s");
+		}
+
+	}
+
+//5ºMETODO
+
+public static void borrarCliente() {
+	
+	Comprobar com = new Comprobar();
+	ClienteModelo cm = new ClienteModelo();
+	String dni;
+	Scanner sc = new Scanner(System.in);
+	
+	System.out.println("Introduce el dni");
+	dni= sc.nextLine();
+	
+	if (com.com("clientes","dni",dni)==false) {
+		System.out.println("Cliente no encontrado");
+	}
+		
+		System.out.println("Se han modificado "+ cm.borrarCliente(dni) + " dato/s");
+	
+	}
+*/

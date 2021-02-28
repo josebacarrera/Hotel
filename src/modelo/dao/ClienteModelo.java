@@ -58,7 +58,7 @@ public class ClienteModelo extends Conector {
 
 		Statement st = super.conexion.createStatement();
 		ResultSet rs = st.executeQuery("select * from clientes");
-		//int cont=st.executeUpdate();
+		
 
 		while (rs.next()) {
 
@@ -73,6 +73,7 @@ public class ClienteModelo extends Conector {
 			lista.add(cliente);
 
 		}
+		
 
 	}
 
@@ -85,19 +86,16 @@ public class ClienteModelo extends Conector {
 	
 	//2튝ETODO
 	
-	public ArrayList<Cliente> buscarCliente(String nombre) {
+	public Cliente buscarCliente(String dni) {
 
-		ArrayList<Cliente> lista = new ArrayList<Cliente>();
 		Cliente cliente = new Cliente();
-		
 		
 		try {
 
-
 			Statement st = super.conexion.createStatement();
-			ResultSet rs = st.executeQuery("select * from clientes where nombre like '%" + nombre + "%'");
+			ResultSet rs = st.executeQuery("select * from clientes where dni like '%" + dni + "%'");
 
-			while (rs.next()) {
+			if (rs.next()) {
 
 				cliente.setDni(rs.getString("dni"));
 				cliente.setNombre(rs.getString("nombre"));
@@ -105,17 +103,15 @@ public class ClienteModelo extends Conector {
 				cliente.setDireccion(rs.getString("direccion"));
 				cliente.setLocalidad(rs.getString("localidad"));
 
-				lista.add(cliente);
-
 			}
-
+			
 		}
 
 		catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		return lista;
+		return cliente;
 	}
 	
 	//3튝ETODO
@@ -152,58 +148,62 @@ public class ClienteModelo extends Conector {
 	
 	//4튝ETODO
 	
-	public void actualizarCliente(String dni,String nombre,String apellidos,String direccion,String localidad) {
-
+	public int actualizarCliente(String dni,String nombre,String apellidos,String direccion,String localidad) {
 		
-		//int cont=st.executeUpdate();
+		int i = 0;
+		
 		PreparedStatement pst;
 		try {
+			
 			pst = super.conexion.prepareStatement("update clientes set nombre=? where dni=?");
 			pst.setString(1, nombre);
 			pst.setString(2, dni);
 			
-			pst.executeUpdate();
+			i=pst.executeUpdate();
 			
 			pst = super.conexion.prepareStatement("update clientes set apellidos=? where dni=?");
 			pst.setString(1, apellidos);
 			pst.setString(2, dni);
 			
-			pst.executeUpdate();
+			i=pst.executeUpdate();
 			
 			pst = super.conexion.prepareStatement("update clientes set direccion=? where dni=?");
 			pst.setString(1, direccion);
 			pst.setString(2, dni);
 		
-			pst.executeUpdate();
+			i=pst.executeUpdate();
 
 			pst = super.conexion.prepareStatement("update clientes set localidad=? where dni=?");
 			pst.setString(1, localidad);
 			pst.setString(2, dni);
 		
-			pst.executeUpdate();
+			i=pst.executeUpdate();
 			
-			System.out.println("Los datos del cliente se han modificado correctamente");
+			
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		return i;
 	}
 	
 	//5튝ETODO
 	
-	public void borrarCliente(String dni) {
-
+	public int borrarCliente(String dni) {
+		
+		int i = 0;
 		PreparedStatement pst;
+		
 		try {
 			pst = (PreparedStatement) super.conexion.prepareStatement("delete from clientes where dni=?");
 			pst.setString(1, dni);
-			pst.execute();
+			i=pst.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
+		return i;
 	}
 
 	

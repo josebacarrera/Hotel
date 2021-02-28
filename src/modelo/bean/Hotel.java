@@ -17,7 +17,7 @@ public class Hotel {
 
 	//ATRIBUTOS
 	
-	private int id;
+	private String id;
 	private String cif;
 	private String nombre;
 	private String gerente;
@@ -31,7 +31,7 @@ public class Hotel {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Hotel(int id, String cif, String nombre, String gerente, int estrellas, String compania) {
+	public Hotel(String id, String cif, String nombre, String gerente, int estrellas, String compania) {
 		super();
 		this.id = id;
 		this.cif = cif;
@@ -43,11 +43,11 @@ public class Hotel {
 
 	//GETTERS Y SETTERS
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

@@ -30,7 +30,7 @@ public class ReservaModelo extends Conector {
 
 			Reserva reserva = new Reserva();
 
-			reserva.setId(rs.getInt("id"));
+			reserva.setId(rs.getString("id"));
 			reserva.setId_habitacion(rs.getInt("id_habitacion"));
 			reserva.setDni(rs.getString("dni"));
 			reserva.setDesde(rs.getDate("desde"));
@@ -51,27 +51,25 @@ public class ReservaModelo extends Conector {
 	
 	//2튝ETODO
 	
-	public ArrayList<Reserva> buscarReserva(String dni) {
+	public Reserva buscarReserva(String id) {
 
-		ArrayList<Reserva> lista = new ArrayList<Reserva>();
+	Reserva reserva = new Reserva();
 
 		try {
 
 
 			Statement st = super.conexion.createStatement();
-			ResultSet rs = st.executeQuery("select * from reservas where nombre like '%" + dni + "%'");
+			ResultSet rs = st.executeQuery("select * from reservas where nombre like '%" + id + "%'");
 
-			while (rs.next()) {
+			if (rs.next()) {
 
-				Reserva reserva = new Reserva();
-
-				reserva.setId(rs.getInt("id"));
+				reserva.setId(rs.getString("id"));
 				reserva.setId_habitacion(rs.getInt("id_habitacion"));
 				reserva.setDni(rs.getString("dni"));
 				reserva.setDesde(rs.getDate("desde"));
 				reserva.setHasta(rs.getDate("hasta"));
 
-				lista.add(reserva);
+
 
 			}
 
@@ -81,23 +79,23 @@ public class ReservaModelo extends Conector {
 			e.printStackTrace();
 		}
 
-		return lista;
+		return reserva;
 	}
 	
 	//3튝ETODO
 	
-	public Reserva verReserva(int id) {
+	public Reserva verReserva(String id) {
 
 		Reserva reserva = new Reserva();
 		
 		try {
 
 			Statement st = super.conexion.createStatement();
-			ResultSet rs = st.executeQuery("select * from reservas where dni='" + id + "'");
+			ResultSet rs = st.executeQuery("select * from reservas where id='" + id + "'");
 
 			if (rs.next()) {
 			
-				reserva.setId(rs.getInt("ID"));
+				reserva.setId(rs.getString("Id"));
 				reserva.setId_habitacion(rs.getInt("id_habitacion"));
 				reserva.setDni(rs.getString("dni"));
 				reserva.setDesde(rs.getDate("desde"));
@@ -118,41 +116,45 @@ public class ReservaModelo extends Conector {
 	
 	//4튝ETODO
 	
-	public void actualizarReserva(int id,Date hasta) {
+	public int actualizarReserva(String id,Date hasta) {
 		
 		java.sql.Date sqlFecha = new java.sql.Date (hasta.getTime());
+		
+		int i = 0;
 		
 		PreparedStatement pst;
 		try {
 				
 			pst = super.conexion.prepareStatement("update reservas set fin=? where id=?");
 			pst.setDate(1, sqlFecha);
-			pst.setInt(2, id);
+			pst.setString(2, id);
 		
-			pst.executeUpdate();
+			i=pst.executeUpdate();
 			
-			System.out.println("Los datos de la reserva se han modificado correctamente");
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		
+		return i;
 	}
 	
 	//5튝ETODO
 	
-	public void borrarReserva(int id) {
+	public int borrarReserva(String id) {
 
+		int i = 0;
 		PreparedStatement pst;
 		try {
 			pst = (PreparedStatement) super.conexion.prepareStatement("delete from reservas where id=?");
-			pst.setInt(1, id);
-			pst.execute();
+			pst.setString(1, id);
+			i=pst.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
+		
+		return i ;
 	}
 
 	

@@ -235,31 +235,25 @@ public class Main {
 			System.out.println(cli.get(i).toString());
 		} 
 		
-		
+		System.out.println(cli.size());
 	}
 	
 	//2ºMETODO
 	
 	public static void buscarCliente() {
 		
-		Scanner sc = new Scanner(System.in);
-		Cliente cliente = new Cliente();
-		ArrayList <Cliente> lista;
-		ClienteModelo cm = new ClienteModelo();
-	
-			
-		System.out.println("Escribe una parte de un cliente");
-		String elegir;
-		elegir = sc.nextLine();
-		
-		lista=cm.buscarCliente(elegir);
-			
-		for (int i = 0; i < lista.size(); i++) {
-				
-		System.out.println(lista.get(i).toString());
-		} 
-		
-		
+	Comprobar com = new Comprobar();
+	ClienteModelo cm = new ClienteModelo();
+	String pk;
+	Scanner sc = new Scanner(System.in);
+	System.out.println("Introduce el dni del cliente");
+	pk=sc.nextLine();
+	if (com.com("clientes","dni",pk)==false) {
+		System.out.println("Cliente no encontrado");
+	}
+	else {
+		System.out.println(cm.buscarCliente(pk));
+		}
 	}
 	
 	//3ºMETODO
@@ -294,37 +288,52 @@ public class Main {
 	
 	public static void editarCliente() {
 		
+		Comprobar com = new Comprobar();
 		ClienteModelo cm = new ClienteModelo();
-		String dni,direccion,nombre,apellidos,localidad;
+		String pk,direccion,nombre,apellidos,localidad;
 		Scanner sc = new Scanner(System.in);
 		
-		
 		System.out.println("Escribe el dni");
-		dni = sc.nextLine();
-		System.out.println("Escribe nombre");
-		nombre = sc.nextLine();
-		System.out.println("Escribe el apellido");
-		apellidos = sc.nextLine();
-		System.out.println("Escribe la direccion");
-		direccion = sc.nextLine();
-		System.out.println("Escribe la localidad");
-		localidad = sc.nextLine();
+		pk = sc.nextLine();
 		
-		cm.actualizarCliente(dni, nombre, apellidos, direccion, localidad);
-		
+		if (com.com("clientes","dni",pk)==false) {
+			System.out.println("Cliente(dni) no encontrado");
+		}
+		else {
+			
+			System.out.println("Escribe nombre");
+			nombre = sc.nextLine();
+			System.out.println("Escribe el apellido");
+			apellidos = sc.nextLine();
+			System.out.println("Escribe la direccion");
+			direccion = sc.nextLine();
+			System.out.println("Escribe la localidad");
+			localidad = sc.nextLine();
+			
+			System.out.println("Los datos del cliente se han modificado correctamente");
+			System.out.println("------------------------------------------------------");
+			System.out.println("Se han modificado "+ cm.actualizarCliente(pk,direccion,nombre,apellidos,localidad) + " dato/s");
+			}
+
 		}
 	
 	//5ºMETODO
 	
 	public static void borrarCliente() {
 		
+		Comprobar com = new Comprobar();
 		ClienteModelo cm = new ClienteModelo();
 		String dni;
-		
 		Scanner sc = new Scanner(System.in);
+		
 		System.out.println("Introduce el dni");
 		dni= sc.nextLine();
-		cm.borrarCliente(dni);
+		
+		if (com.com("clientes","dni",dni)==false) {
+			System.out.println("Cliente no encontrado");
+		}
+			
+			System.out.println("Se ha borrado "+ cm.borrarCliente(dni) + " dato/s");
 		
 		}
 	
@@ -335,43 +344,83 @@ public class Main {
 	public static void todasHabitaciones(){
 		
 		ArrayList <Habitacion> hab = new ArrayList<Habitacion>();
-		HabitacionModelo hm = new HabitacionModelo();
+		HabitacionModelo cm = new HabitacionModelo();
+		String cont;
+		
 		
 		System.out.println("TODOS LAS HABITACIONES");
-		hab = hm.selectAllhabitaciones();
+		hab = cm.selectAllhabitaciones();
 		for (int i = 0; i < hab.size(); i++) {
 			
 			System.out.println(hab.get(i).toString());
 		} 
+		
+		System.out.println(hab.size());
 	}
 	
 	//2ºMETODO
 	
-	public static void buscarHabitacion() {}
+	public static void buscarHabitacion() {
+		
+		Comprobar com = new Comprobar();
+		HabitacionModelo hab = new HabitacionModelo();
+		String pk;
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Introduce el id de la habitacion");
+		pk=sc.nextLine();
+		if (com.com("habitaciones","id",pk)==false) {
+			System.out.println("Cliente no encontrado");
+		}
+		else {
+			System.out.println(hab.buscarHabitaciones(pk));
+			}
+		}
+	
 	
 	//3ºMETODO
 	
 	public static void quitar20e() {
 		
 		HabitacionModelo hm = new HabitacionModelo();
-		int id;
+		Habitacion habitacion = new Habitacion();
+		String id;
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Escribe el id");
-		id = Integer.parseInt(sc.nextLine());
-		hm.restar20(id);
+		id = sc.nextLine();
+		
+		if(habitacion.getId()==null) {
+			
+			System.out.println("No existe este dato,inténtalo otra vez");
+		}
+		
+		else {
+		habitacion=hm.restar20(id);
+		System.out.println(habitacion);
+
+		
+		}
 	}
 	
 	//4ºMETODO
 	
 	public static void editarHabitacion() {
 		
+		Comprobar com = new Comprobar();
 		HabitacionModelo hm = new HabitacionModelo();
-		int id,id_hotel;
-		String numero,descripcion;
+		int id_hotel;
+		String numero,descripcion,id;
 		double precio;
+		
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Escribe el id");
-		id = Integer.parseInt(sc.nextLine());
+		id =sc.nextLine();
+		
+		if (com.com("habitaciones","id",id)==false) {
+			System.out.println("Habitacion(id) no encontrado");
+		
+		}
+		
+		else {
 		System.out.println("Escribe id del hotel");
 		id_hotel = Integer.parseInt(sc.nextLine());
 		System.out.println("Escribe el numero");
@@ -381,20 +430,33 @@ public class Main {
 		System.out.println("Escribe la precio");
 		precio = Double.parseDouble(sc.nextLine());
 		
+		System.out.println("Los datos de la habitación se han modificado correctamente");
+		System.out.println("------------------------------------------------------");
+		System.out.println("Se han modificado "+ hm.actualizarHabitaciones(id_hotel, id_hotel, numero, descripcion, null) + " dato/s");
+
+		}
 	}
 	
 	//5ºMETODO
 	
 	public static void eliminarHabitacion() {
 		
+		Comprobar com = new Comprobar();
 		HabitacionModelo hm = new HabitacionModelo();
-		String elegir;
-		int id=0;
+		String elegir,id;
 		Scanner sc = new Scanner(System.in);
-		System.out.println("Introduce el dni");
-		id= Integer.parseInt(sc.nextLine());
-		hm.borrarHabitaciones(id);
-	}
+		
+		System.out.println("Introduce el id");
+		id= sc.nextLine();
+		
+		if (com.com("habitaciones","id",id)==false) {
+			System.out.println("Habitacion no encontrada");
+		}
+			
+			System.out.println("Se ha borrado"+ hm.borrarHabitaciones(id) + " dato/s");
+		
+		}
+		
 	
 	//HOTELES
 	
@@ -411,54 +473,73 @@ public class Main {
 				
 				System.out.println(hot.get(i).toString());
 			} 
+			
+			System.out.println(hot.size());
 		}
 		
 		//2ºMETODO
 		
 		public static void buscarHotel() {
 			
-
-			
-			ArrayList <Hotel> lista;
-			HotelModelo hom = new HotelModelo();
-			
-			System.out.println("Escribe parte del nombre un hotel");
+			Comprobar com = new Comprobar();
+			HotelModelo hm = new HotelModelo();
+			String pk;
 			Scanner sc = new Scanner(System.in);
-			String elegir;
-			elegir = sc.nextLine();
-			
-			lista=hom.buscarHoteles(elegir);
-			
-			for (int i = 0; i < lista.size(); i++) {
-				
-				System.out.println(lista.get(i).toString());
-			} 
-			
-		}
+			System.out.println("Introduce el id del hotel");
+			pk=sc.nextLine();
+			if (com.com("hoteles","id",pk)==false) {
+				System.out.println("Hotel no encontrado");
+			}
+			else {
+				System.out.println(hm.buscarHoteles(pk));
+				}
+			}
 		
 		//3ºMETODO
 		
 		public static void verHotel() {
 			
-			System.out.println("Escribe el id del hotel");
 			Scanner sc = new Scanner(System.in);
+			Hotel hotel = new Hotel();
+			ArrayList <Hotel> lista;
 			String elegir;
-			elegir = sc.nextLine();
 			int id = 0;
-			HotelModelo hom = new HotelModelo();
-			hom.verHoteles(id);
+			HotelModelo hm = new HotelModelo();
+			System.out.println("Que id quieres?Escribelo");
+			id = Integer.parseInt(sc.nextLine());
+			hotel=hm.verHoteles(id);
+			
+			if(hotel.getId()==null) {
+				
+				System.out.println("No existe este dato,inténtalo otra vez");
+			}
+			
+			else {
+			hotel=hm.verHoteles(id);
+			System.out.println(hotel);
+			
+			}
+			
 		}
 		
 		//4ºMETODO
 		
 		public static void editarHotel() {
 			
+			Comprobar com = new Comprobar();
 			HotelModelo hom = new HotelModelo();
-			String cif,nombre,gerente,compania;
-			int id,estrellas;
+			String cif,nombre,gerente,compania,id,pk;
+			int estrellas;
 			Scanner sc = new Scanner(System.in);
 			System.out.println("Escribe el id");
-			id = Integer.parseInt(sc.nextLine());
+			pk = sc.nextLine();
+			
+			if (com.com("hoteles","id",pk)==false) {
+				System.out.println("Hotel(id) no encontrado");
+			}
+			
+			else {
+			
 			System.out.println("Escribe nombre");
 			cif = sc.nextLine();
 			System.out.println("Escribe nombre");
@@ -469,20 +550,32 @@ public class Main {
 			estrellas = Integer.parseInt(sc.nextLine());
 			System.out.println("Escribe la localidad");
 			compania = sc.nextLine();
-			hom.actualizarHoteles(id,cif,nombre,gerente,estrellas,compania);
+			
+			System.out.println("Los datos del cliente se han modificado correctamente");
+			System.out.println("------------------------------------------------------");
+			System.out.println("Se han modificado "+ hom.actualizarHoteles(estrellas, cif, nombre, gerente, estrellas, compania) + " dato/s");
+		
+			
+			}
 		}
 		
 		//5ºMETODO
 		
-		public static void borrarHotel() {
+		public static void borrarHotel()  {
 			
-			HotelModelo hom = new HotelModelo();
-			int id;
-			
+			Comprobar com = new Comprobar();
+			HotelModelo hm = new HotelModelo();
+			String id;
 			Scanner sc = new Scanner(System.in);
-			System.out.println("Introduce el dni");
-			id= Integer.parseInt(sc.nextLine());
-			hom.borrarHoteles(id);
+			
+			System.out.println("Introduce el id");
+			id= sc.nextLine();
+			
+			if (com.com("hoteles","id",id)==false) {
+				System.out.println("Hotel no encontrado");
+			}
+				
+				System.out.println("Se ha borrado "+ hm.borrarHoteles(id) + " dato/s");
 			
 			}
 	
@@ -501,42 +594,53 @@ public class Main {
 				
 				System.out.println(res.get(i).toString());
 			} 
+			
+			System.out.println(res.size());
 		}
 		
 		//2ºMETODO
 		
 		public static void buscarReserva() {
 			
-
-			
-			ArrayList <Reserva> lista;
-			ReservaModelo rm = new ReservaModelo();
-			
-			System.out.println("Escribe el dni que está asociado a la reserva");
+			Comprobar com = new Comprobar();
+			String pk;
 			Scanner sc = new Scanner(System.in);
-			String elegir;
-			elegir = sc.nextLine();
-			
-			lista=rm.buscarReserva(elegir);
-			
-			for (int i = 0; i < lista.size(); i++) {
-				
-				System.out.println(lista.get(i).toString());
-			} 
-			
-		}
+			ReservaModelo rm = new ReservaModelo();
+			System.out.println("Escribe el id que está asociado a la reserva");
+			pk=sc.nextLine();
+			if (com.com("reservas","id",pk)==false) {
+				System.out.println("Reserva no encontrado");
+			}
+			else {
+				System.out.println(rm.buscarReserva(pk));
+				}
+			}
 		
 		//3ºMETODO
 		
 		public static void verReserva() {
 			
-			System.out.println("Escribe el id asociado a la reserva");
 			Scanner sc = new Scanner(System.in);
+			Reserva reserva = new Reserva();
+			ArrayList <Reserva> lista;
 			String elegir;
-			elegir = sc.nextLine();
-			int id=0;
+			String id ;
 			ReservaModelo rm = new ReservaModelo();
-			rm.verReserva(id);
+			System.out.println("Que id quieres?Escribelo");
+			id =sc.nextLine();
+			reserva=rm.verReserva(id);
+			
+			if(reserva.getId()==null) {
+				
+				System.out.println("No existe este dato,inténtalo otra vez");
+			}
+			
+			else {
+			reserva=rm.verReserva(id);
+			System.out.println(reserva);
+
+			
+			}
 			
 		}
 		
@@ -548,12 +652,10 @@ public class Main {
 			SimpleDateFormat formatoFecha1 = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			Scanner sc = new Scanner(System.in);
 			
-			
-			
 			ReservaModelo cm = new ReservaModelo();
-			int id;
+			String id;
 			System.out.println("Escribe la id");
-			id = Integer.parseInt(sc.nextLine());
+			id = sc.nextLine();
 			try {
 				
 				System.out.println("Escribe el fin de la reserva");
@@ -564,19 +666,26 @@ public class Main {
 				
 			}
 			cm.actualizarReserva(id,fechaFin);
+			System.out.println("Los datos de la reserva se han modificado correctamente");
 		}
 		
 		//5ºMETODO
 		
 		public static void borrarReserva() {
 			
+			Comprobar com = new Comprobar();
 			ReservaModelo rm = new ReservaModelo();
-			int id = 0 ;
-			
+			String id;
 			Scanner sc = new Scanner(System.in);
+
 			System.out.println("Introduce el id");
-			id= Integer.parseInt(sc.nextLine());
-			rm.borrarReserva(id);
+			id= sc.nextLine();
+			
+			if (com.com("reservas","id",id)==false) {
+				System.out.println("Reserva no encontrado");
+			}
+			
+			System.out.println("Se han borrado "+ rm.borrarReserva(id) + " dato/s");
 			
 			}
 }
